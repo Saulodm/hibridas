@@ -12,7 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { CasasServiceProvider } from '../providers/casas-service/casas-service';
+import {LocationServiceProvider } from '../providers/location-service/location-service'
 @NgModule({
   declarations: [
     MyApp,
@@ -28,7 +29,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    
+
     HomePage,
     TabsPage,
     CadastroPage
@@ -37,7 +38,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CasasServiceProvider,
+    LocationServiceProvider
   ]
 })
 export class AppModule {}

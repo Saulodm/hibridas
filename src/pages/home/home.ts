@@ -2,6 +2,8 @@ import { LocalizacaoModel } from './../../models/localizacaoModel';
 import { EnderecoModel } from './../../models/enderecoModel';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { CasasServiceProvider } from '../../providers/casas-service/casas-service'
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-home',
@@ -10,19 +12,19 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   public enderecos: EnderecoModel[];
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public casasService: CasasServiceProvider) {
 
-    this.enderecos = [];
-    var endereco = new EnderecoModel();    
-    endereco.rua = "Bernardo Vasconcelos";
-    endereco.cidade = "Belo Horizonte";
-    endereco.estado = "MG";
-    endereco.complemento = "casa";
-    endereco.numero = "1000";
-    endereco.localizacao = new LocalizacaoModel();
-    endereco.localizacao.latitude = "-19.884987"
-    endereco.localizacao.longitude = "-43.942762"
-    this.enderecos.push(endereco);
+    this.enderecos = casasService.getCasas();
+  }
+
+  editar(item: any){
+    console.log(item);
+    this.navCtrl.parent.select(1);
+  }
+
+  deletar(item: any){
+    this.casasService.deleteCasa(item.id);
+    this.enderecos = this.casasService.getCasas();
   }
 
 }
