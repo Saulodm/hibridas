@@ -1,0 +1,86 @@
+<!--
+  Generated template for the CadastroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item col-12>
+      <ion-label col-3 color="primary">Rua</ion-label>
+      <ion-input placeholder="Nome da rua" [(ngModel)]="endereco.rua" required name="descricao" #cd="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item col-12>
+      <ion-label col-3 color="primary">Numero</ion-label>
+      <ion-input placeholder="Número" [(ngModel)]="endereco.numero" required name="descricao" #cd="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item col-12>
+      <ion-label col-5 color="primary">Complemento</ion-label>
+      <ion-input placeholder="Complemento" [(ngModel)]="endereco.complemento" required name="descricao" #cd="ngModel"></ion-input>
+    </ion-item>
+    <ion-item col-12>
+      <ion-label col-3 color="primary">Cidade</ion-label>
+      <ion-input placeholder="Nome da cidade" [(ngModel)]="endereco.cidade" required name="descricao" #cd="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item col-12>
+      <ion-label col-3 color="primary">Estado</ion-label>
+      <ion-select col-9 [(ngModel)]="endereco.estado" required>
+        <ion-option selected value="">Selecione o Estado </ion-option>
+        <ion-option value="AC">AC - Acre </ion-option>
+        <ion-option value="AL">AL - Alagoas</ion-option>
+        <ion-option value="AP">AP - Amapá</ion-option>
+        <ion-option value="AM">AM - Amazonas</ion-option>
+        <ion-option value="BA">BA - Bahia</ion-option>
+        <ion-option value="CE">CE - Ceará</ion-option>
+        <ion-option value="DF">DF - Distrito Federal</ion-option>
+        <ion-option value="ES">ES - Espírito Santo</ion-option>
+        <ion-option value="GO">GO - Goiás</ion-option>
+        <ion-option value="MA">MA - Maranhão</ion-option>
+        <ion-option value="MT">MT - Mato Grosso</ion-option>
+        <ion-option value="MS">MS - Mato Grosso do Sul</ion-option>
+        <ion-option value="MG">MG - Minas Gerais</ion-option>
+        <ion-option value="PA">PA - Pará</ion-option>
+        <ion-option value="PB">PB - Paraíba</ion-option>
+        <ion-option value="PR">PR - Paraná</ion-option>
+        <ion-option value="PE">PE - Pernambuco</ion-option>
+        <ion-option value="PI">PI - Piauí</ion-option>
+        <ion-option value="RJ">RJ - Rio de Janeiro</ion-option>
+        <ion-option value="RN">RN - Rio Grande do Norte</ion-option>
+        <ion-option value="RS">RS - Rio Grande do Sul</ion-option>
+        <ion-option value="RO">RO - Rondônia</ion-option>
+        <ion-option value="RR">RR - Roraima</ion-option>
+        <ion-option value="SC">SC - Santa Catarina</ion-option>
+        <ion-option value="SP">SP - São Paulo</ion-option>
+        <ion-option value="SE">SE - Sergipe</ion-option>
+        <ion-option value="TO">TO - Tocantins</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item col-12>        
+        <button col-12 ion-button icon-start round color="secondary" (click)="localizar()">
+            <ion-icon name="pin"></ion-icon>
+             Pegar Localização
+        </button>
+      </ion-item>
+  </ion-list>
+  <button ion-button icon-start round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
+    <ion-icon name="checkmark"></ion-icon>
+    Alterar
+  </button>
+  <button ion-button icon-start round color="primary" (click)="incluir()" [class.invisivel]="!novo" [disabled]="!cd.valid">
+    <ion-icon name="checkmark"></ion-icon>
+    Incluir
+  </button>
+</ion-content>

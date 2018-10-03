@@ -1,17 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Lista de Endereços</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-list>
+    <ion-item-sliding  *ngFor="let e of enderecos">
+      <ion-item>
+        <ion-avatar item-start>
+          <ion-icon name="home"></ion-icon>
+        </ion-avatar>
+        <h2><strong>Rua: </strong>{{e.rua}}, {{e.numero}}</h2>
+        <h3><strong>Cidade/Estado: </strong>{{e.cidade}} - {{e.estado}}</h3>
+        <h4><strong>Complemento: </strong>{{e.complemento}}</h4>
+        <small><strong>Localização: </strong>{{e.localizacao.latitude}},{{e.localizacao.longitude}}</small>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="arrow-forward"></ion-icon>
+          Editar
+        </button>
+        <button ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Excluir
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
