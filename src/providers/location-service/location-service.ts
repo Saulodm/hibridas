@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LocalizacaoModel } from '../../models/localizacaoModel';
+import { GeocoderRequest, Geocoder, BaseArrayClass, GeocoderResult } from '@ionic-native/google-maps';
 /*
   Generated class for the LocationServiceProvider provider.
 
@@ -23,7 +24,17 @@ export class LocationServiceProvider {
         location.latitude =  pos.coords.latitude
         location.longitude = pos.coords.longitude
         console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-        functionCallback(location);
+
+        let options: GeocoderRequest = {
+          position:  {"lat": location.latitude, "lng": location.longitude}
+        };
+        // latitude,longitude -> address
+        Geocoder.geocode(options)
+        .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {
+          mvcArray.one('finish').then(() => {
+            functionCallback(location);
+          });
+        })
       });
   }
 

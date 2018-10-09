@@ -35,14 +35,15 @@ export class CadastroPage {
      public loadingCtrl: LoadingController,
      private alertCtrl: AlertController,
      private casasService: CasasServiceProvider) {
-
+debugger;
     this.endereco = new EnderecoModel();
 
     if (navParams.data == true){
       this.novo = true;
     }
-    else{
+    if(navParams.get('enderecoId') != null){
       this.novo = false;
+      this.endereco = casasService.getCasa(navParams.get('enderecoId'));
     }
   }
 
@@ -82,13 +83,13 @@ export class CadastroPage {
 
   alterar(){
     debugger;
-    this.casasService.cadastrarCasa(this.endereco);
-    this.navCtrl.parent.select(0);
+    this.casasService.editarCasa(this.endereco);
+    this.navCtrl.pop();
   }
   incluir(){
     debugger;
     this.casasService.cadastrarCasa(this.endereco);
-    this.navCtrl.parent.select(0);
+    this.navCtrl.pop();
   }
   
 

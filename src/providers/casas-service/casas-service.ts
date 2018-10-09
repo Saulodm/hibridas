@@ -34,10 +34,31 @@ export class CasasServiceProvider {
   getCasas() {
     return this.casas; 
   }
+  getCasa(id: number) {
+    return this.casas.find(function(e) {
+      return e.id == id;
+    }); 
+  }
+  editarCasa(c: EnderecoModel){
+    let casa = this.casas.find(function(e) {
+      return e.id == c.id;
+    });
 
+    casa.estado = c.estado;
+    casa.cidade = c.cidade;
+    casa.rua = c.rua;
+    casa.numero = c.numero;
+    casa.complemento = c.complemento;
+    casa.localizacao = c.localizacao;
+
+    let index = this.casas.indexOf(casa);
+    this.casas[index] = casa;
+
+
+  }
   deleteCasa(id: number){
     let casa = this.casas.find(function(e) {
-      return e.id == 10;
+      return e.id == id;
     })
 
     this.casas.splice( this.casas.indexOf(casa), 1 );

@@ -94,7 +94,7 @@
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="2.4.6">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBKG6GwXfECqwyWI34acHvKaV9YWBsq5Jg" />
-        <variable name="API_KEY_FOR_IOS" value="(API_KEY_FOR_IOS)" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDy0sq1qlcu9--i81-Y28orzyWXi1RSVEg" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>

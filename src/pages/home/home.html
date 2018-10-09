@@ -17,11 +17,11 @@
         <small><strong>Localização: </strong>{{e.localizacao.latitude}},{{e.localizacao.longitude}}</small>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="primary" (click)="editar(e)">
+        <button ion-button color="primary" (click)="editar(e.id)">
           <ion-icon name="arrow-forward" ></ion-icon>
           Editar
         </button>
-        <button ion-button color="danger" (click)="deletar(e)">
+        <button ion-button color="danger" (click)="deletar(e.id)">
           <ion-icon name="trash"></ion-icon>
           Excluir
         </button>

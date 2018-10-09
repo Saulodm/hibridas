@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CasasServiceProvider } from '../../providers/casas-service/casas-service'
 import { TabsPage } from '../tabs/tabs';
+import { CadastroPage } from '../cadastro/cadastro';
 
 @Component({
   selector: 'page-home',
@@ -17,13 +18,14 @@ export class HomePage {
     this.enderecos = casasService.getCasas();
   }
 
-  editar(item: any){
+  editar(item: number){
     console.log(item);
-    this.navCtrl.parent.select(1);
+    this.navCtrl.push(CadastroPage, {enderecoId: item});
+    //this.navCtrl.parent.select(1);
   }
 
-  deletar(item: any){
-    this.casasService.deleteCasa(item.id);
+  deletar(item: number){
+    this.casasService.deleteCasa(item);
     this.enderecos = this.casasService.getCasas();
   }
 
