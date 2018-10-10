@@ -7,4 +7,5 @@ export class EnderecoModel {
     public cidade: string;
     public estado: string;
     public localizacao: LocalizacaoModel;
+    public fotoBase64: string;
 }

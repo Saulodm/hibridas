@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LocalizacaoModel } from '../../models/localizacaoModel';
 import { GeocoderRequest, Geocoder, BaseArrayClass, GeocoderResult } from '@ionic-native/google-maps';
+import { NativeGeocoder,
+  NativeGeocoderReverseResult,
+  NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+  import { Platform} from 'ionic-angular';
 /*
   Generated class for the LocationServiceProvider provider.
 
@@ -11,13 +15,13 @@ import { GeocoderRequest, Geocoder, BaseArrayClass, GeocoderResult } from '@ioni
 @Injectable()
 export class LocationServiceProvider {
  private _geolocation: Geolocation
-  constructor(private geolocation: Geolocation) {
+  constructor(private platform: Platform , private geolocation: Geolocation, private _GEOCODE  : NativeGeocoder) {
     console.log('Hello LocationServiceProvider Provider');
     this._geolocation = geolocation;
   }
   getLocation(functionCallback: Function){
     debugger;
-    
+    if(this.platform.is('cordova')){
       this.geolocation.getCurrentPosition().then(pos => {
         debugger;
         let location: LocalizacaoModel = new LocalizacaoModel();
@@ -36,6 +40,35 @@ export class LocationServiceProvider {
           });
         })
       });
+    }
   }
+
+     /**
+     *
+     * Perform reverseGeocoding operation and return address details
+     *
+     * @public
+     * @method reverseGeocode
+     * @return {Promise}
+     *
+     */
+    reverseGeocode(lat : number, lng : number) : Promise<any>
+    {
+       return new Promise((resolve, reject) =>
+       {
+          this._GEOCODE.reverseGeocode(lat, lng)
+          .then((result : NativeGeocoderReverseResult[]) =>
+          {
+             let str : string   = `The reverseGeocode address is ${result[0].administrativeArea} in ${result[0].subAdministrativeArea}`;
+             resolve(str);
+          })
+          .catch((error: any) =>
+          {
+             console.log(error);
+             reject(error);
+          });
+       });
+    }
+ 
 
 }

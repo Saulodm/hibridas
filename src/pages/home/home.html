@@ -9,7 +9,8 @@
     <ion-item-sliding  *ngFor="let e of enderecos">
       <ion-item>
         <ion-avatar item-start>
-          <ion-icon name="home"></ion-icon>
+            <ion-icon  *ngIf="e.fotoBase64 == '' || e.fotoBase64 == null" name="home" item-right></ion-icon>              
+            <img   *ngIf="e.fotoBase64 != '' || e.fotoBase64 != null" [src]="e.fotoBase64" item-right>              
         </ion-avatar>
         <h2><strong>Rua: </strong>{{e.rua}}, {{e.numero}}</h2>
         <h3><strong>Cidade/Estado: </strong>{{e.cidade}} - {{e.estado}}</h3>

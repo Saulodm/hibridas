@@ -74,6 +74,12 @@
              Pegar Localização
         </button>
       </ion-item>
+      <ion-item col-12>        
+        <button col-12 ion-button icon-start round color="primary" (click)="openMenu()">
+            <ion-icon name="camera"></ion-icon>
+            Foto
+        </button>
+      </ion-item>
   </ion-list>
   <button ion-button icon-start round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
     <ion-icon name="checkmark"></ion-icon>

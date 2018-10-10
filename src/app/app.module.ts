@@ -12,6 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';//import in app.module.ts
+import { NativeGeocoder } from '@ionic-native/native-geocoder';//import in app.module.ts
 import { CasasServiceProvider } from '../providers/casas-service/casas-service';
 import {LocationServiceProvider } from '../providers/location-service/location-service'
 @NgModule({
@@ -39,6 +41,8 @@ import {LocationServiceProvider } from '../providers/location-service/location-s
     SplashScreen,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera, 
+    NativeGeocoder,
     CasasServiceProvider,
     LocationServiceProvider
   ]
