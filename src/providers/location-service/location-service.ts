@@ -20,25 +20,16 @@ export class LocationServiceProvider {
     this._geolocation = geolocation;
   }
   getLocation(functionCallback: Function){
-    debugger;
+    console.log('teste'); 
     if(this.platform.is('cordova')){
-      this.geolocation.getCurrentPosition().then(pos => {
-        debugger;
+      this.geolocation.getCurrentPosition().then((dados)=>{
         let location: LocalizacaoModel = new LocalizacaoModel();
-        location.latitude =  pos.coords.latitude
-        location.longitude = pos.coords.longitude
-        console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-
-        let options: GeocoderRequest = {
-          position:  {"lat": location.latitude, "lng": location.longitude}
-        };
-        // latitude,longitude -> address
-        Geocoder.geocode(options)
-        .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {
-          mvcArray.one('finish').then(() => {
-            functionCallback(location);
-          });
-        })
+        location.latitude =dados.coords.latitude;
+        location.longitude = dados.coords.longitude;
+        console.log('lat: ' + dados.coords.latitude + ', lon: ' + dados.coords.longitude);   
+        functionCallback(location);
+      }, (err) => {
+        console.log('Erro', err.message); 
       });
     }
   }

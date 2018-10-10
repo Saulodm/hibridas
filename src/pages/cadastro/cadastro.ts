@@ -6,6 +6,7 @@ import { CasasServiceProvider } from '../../providers/casas-service/casas-servic
 
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import { Platform, ActionSheetController } from 'ionic-angular';
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 /**
  * Generated class for the CadastroPage page.
  *
@@ -32,7 +33,8 @@ export class CadastroPage {
      public actionsheetCtrl: ActionSheetController,
      public camera : Camera,
      private alertCtrl: AlertController,
-     private casasService: CasasServiceProvider) {
+     private casasService: CasasServiceProvider,
+     private locationService: LocationServiceProvider) {
 debugger;
     this.endereco = new EnderecoModel();
 
@@ -55,16 +57,15 @@ debugger;
     
       loading.present();
     
+      this.locationService.getLocation(function(data){
+        console.log(data);
+      });
       setTimeout(() => {
         
         loading.dismiss();
       }, 5000);
 
-      // LocationService.getMyLocation().then((myLocation: MyLocation) => {
-
-      //  console.log(myLocation);
-  
-      // });
+       
 
       
     }
@@ -87,7 +88,7 @@ debugger;
   incluir(){
     debugger;
     this.casasService.cadastrarCasa(this.endereco);
-    this.navCtrl.pop();
+    this.navCtrl.parent.select(0);
   }
   openMenu() {
     let actionSheet = this.actionsheetCtrl.create({
@@ -142,6 +143,7 @@ debugger;
       this.currentPhoto = 'data:image/jpeg;base64,' + imageData;
       this.endereco.fotoBase64 = this.currentPhoto
     }, (err) => {
+      console.log(err);
       // Handle error
     });
   }
