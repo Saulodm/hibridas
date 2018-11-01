@@ -18,26 +18,26 @@
   <ion-list>
     <ion-item col-12>
       <ion-label col-3 color="primary">Rua</ion-label>
-      <ion-input placeholder="Nome da rua" [(ngModel)]="endereco.rua" required name="descricao" #cd="ngModel"></ion-input>
+      <ion-input placeholder="Nome da rua" [(ngModel)]="endereco.rua" required name="rua" #cd="ngModel"></ion-input>
     </ion-item>
 
     <ion-item col-12>
       <ion-label col-3 color="primary">Numero</ion-label>
-      <ion-input  placeholder="Número" [(ngModel)]="endereco.numero" required name="descricao" #cd="ngModel"></ion-input>
+      <ion-input  placeholder="Número" [(ngModel)]="endereco.numero" required name="numero" #cd="ngModel"></ion-input>
     </ion-item>
 
     <ion-item col-12>
       <ion-label col-5 color="primary">Complemento</ion-label>
-      <ion-input placeholder="Complemento" [(ngModel)]="endereco.complemento" required name="descricao" #cd="ngModel"></ion-input>
+      <ion-input placeholder="Complemento" [(ngModel)]="endereco.complemento" required name="complemento" #cd="ngModel"></ion-input>
     </ion-item>
     <ion-item col-12>
       <ion-label col-3 color="primary">Cidade</ion-label>
-      <ion-input placeholder="Nome da cidade" [(ngModel)]="endereco.cidade" required name="descricao" #cd="ngModel"></ion-input>
+      <ion-input placeholder="Nome da cidade" [(ngModel)]="endereco.cidade" required name="cidade" #cd="ngModel"></ion-input>
     </ion-item>
 
     <ion-item col-12>
       <ion-label col-3 color="primary">Estado</ion-label>
-      <ion-select col-9 [(ngModel)]="endereco.estado" required>
+      <ion-select col-9 [(ngModel)]="endereco.estado" required #cd="ngModel">
         <ion-option selected value="">Selecione o Estado </ion-option>
         <ion-option value="AC">AC - Acre </ion-option>
         <ion-option value="AL">AL - Alagoas</ion-option>
@@ -81,11 +81,11 @@
         </button>
       </ion-item>
   </ion-list>
-  <button ion-button icon-start round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
+  <button ion-button icon-start round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="enderecoValido()">
     <ion-icon name="checkmark"></ion-icon>
     Alterar
   </button>
-  <button ion-button icon-start round color="primary" (click)="incluir()" [class.invisivel]="!novo" [disabled]="!cd.valid">
+  <button ion-button icon-start round color="primary" (click)="incluir()" [class.invisivel]="!novo" [disabled]="enderecoValido()">
     <ion-icon name="checkmark"></ion-icon>
     Incluir
   </button>

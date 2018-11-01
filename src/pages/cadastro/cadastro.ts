@@ -4,7 +4,7 @@ import { NavController, NavParams, Events, LoadingController, AlertController } 
 import { LocalizacaoModel } from '../../models/localizacaoModel';
 import { CasasServiceProvider } from '../../providers/casas-service/casas-service';
 
-import {Camera, CameraOptions} from "@ionic-native/camera";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 import { Platform, ActionSheetController } from 'ionic-angular';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 /**
@@ -20,82 +20,88 @@ import { LocationServiceProvider } from '../../providers/location-service/locati
 })
 export class CadastroPage {
 
-  localizacaoModel:LocalizacaoModel = new LocalizacaoModel()
+  localizacaoModel: LocalizacaoModel = new LocalizacaoModel()
   public endereco: EnderecoModel;
   public novo: boolean = false;
 
   currentPhoto: string;
 
   constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-     public loadingCtrl: LoadingController,
-     public platform: Platform,
-     public actionsheetCtrl: ActionSheetController,
-     public camera : Camera,
-     private alertCtrl: AlertController,
-     private casasService: CasasServiceProvider,
-     private locationService: LocationServiceProvider) {
-debugger;
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public platform: Platform,
+    public actionsheetCtrl: ActionSheetController,
+    public camera: Camera,
+    private alertCtrl: AlertController,
+    private casasService: CasasServiceProvider,
+    private locationService: LocationServiceProvider) {
+    debugger;
     this.endereco = new EnderecoModel();
 
-    if (navParams.data == true){
+    if (navParams.data == true) {
       this.novo = true;
     }
-    if(navParams.get('enderecoId') != null){
+    if (navParams.get('enderecoId') != null) {
       this.novo = false;
       this.endereco = casasService.getCasa(navParams.get('enderecoId'));
     }
   }
 
-  localizar(){   
+  localizar() {
 
-    try{
+    try {
 
       let loading = this.loadingCtrl.create({
         content: 'Please wait...'
       });
-    
+
       loading.present();
-    
-      this.locationService.getLocation(function(data){
+
+      this.locationService.getLocation(function (data) {
         console.log(data);
       });
       setTimeout(() => {
-        
+
         loading.dismiss();
       }, 5000);
 
-       
 
-      
+
+
     }
-    catch(e){
+    catch (e) {
       let alert = this.alertCtrl.create({
         title: 'Erro ao obter localização',
         subTitle: '',
         buttons: ['Dismiss']
       });
       alert.present();
-       console.log(e); 
+      console.log(e);
     }
   }
 
-  alterar(){
+  alterar() {
     debugger;
     this.casasService.editarCasa(this.endereco);
+    this.limparCadastro();
     this.navCtrl.pop();
   }
-  incluir(){
+  incluir() {
     debugger;
-    this.casasService.cadastrarCasa(this.endereco);
-    this.navCtrl.parent.select(0);
+    if (this.enderecoValido()) {
+      alert("Campos obrigatórios não preenchidos");
+    } else {
+      this.casasService.cadastrarCasa(this.endereco);
+      this.limparCadastro();
+      this.navCtrl.parent.select(0);
+    }
   }
   openMenu() {
     let actionSheet = this.actionsheetCtrl.create({
       title: 'Albums',
       cssClass: 'action-sheets-basic-page',
       buttons: [
-        
+
         {
           text: 'Camera',
           icon: !this.platform.is('ios') ? 'camera' : null,
@@ -109,7 +115,7 @@ debugger;
           handler: () => {
             this.getPhoto("Galeria");
           }
-        },        
+        },
         {
           text: 'Cancelar',
           role: 'cancel', // will always sort to be on the bottom
@@ -122,18 +128,18 @@ debugger;
     });
     actionSheet.present();
   }
-   /**
-   * Criamos o método getPhoto que foi declarado na interface. Cada parâmetro aqui é importante e vai definir o funcionamento da câmera. Nesse exemplo vamos tirar uma foto em JPEG e que vai vir como resultado o base64 da imagem em qualidade 100. Em celulares com menos memória é melhor diminuir um pouco a qualidade
-   *
-   * @param type - photo or gallery
-   */
-  getPhoto(type: string){
+  /**
+  * Criamos o método getPhoto que foi declarado na interface. Cada parâmetro aqui é importante e vai definir o funcionamento da câmera. Nesse exemplo vamos tirar uma foto em JPEG e que vai vir como resultado o base64 da imagem em qualidade 100. Em celulares com menos memória é melhor diminuir um pouco a qualidade
+  *
+  * @param type - photo or gallery
+  */
+  getPhoto(type: string) {
 
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType:this.camera.MediaType.PICTURE,
+      mediaType: this.camera.MediaType.PICTURE,
       sourceType: type == "foto" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       correctOrientation: true
     };
@@ -151,8 +157,32 @@ debugger;
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroPage');
     // This code is necessary for browser
- 
 
+
+  }
+  limparCadastro() {
+    this.endereco.cidade = "";
+    this.endereco.complemento = "";
+    this.endereco.estado = "";
+    this.endereco.fotoBase64 = null;
+    this.endereco.id = null;
+    this.endereco.numero = "";
+    this.endereco.rua = "";
+  }
+  enderecoValido() {
+    if (this.endereco.estado == "" || this.endereco.estado == undefined) {
+      return true;
+    }
+    if (this.endereco.numero == "" || this.endereco.numero == undefined) {
+      return true;
+    }
+    if (this.endereco.rua == "" || this.endereco.rua == undefined) {
+      return true;
+    }
+    if (this.endereco.cidade == "" || this.endereco.cidade == undefined) {
+      return true;
+    }
+    return false;
   }
 
 }
